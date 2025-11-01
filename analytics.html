@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kulima Flex | Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#007a3d',
+            secondary: '#00A859',
+            accent: '#00924f',
+            light: '#F8F9FA',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .mobile-menu-btn {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+      }
+      
+      .overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="bg-light font-sans">
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn fixed top-4 left-4 z-50 bg-primary text-white p-2 rounded-lg shadow-lg">
+    <i class="fas fa-bars text-lg"></i>
+  </button>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay"></div>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar w-64 bg-primary text-white flex flex-col shadow-xl">
+      <div class="p-6 border-b border-green-700 flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold flex items-center">
+            <i class="fas fa-leaf mr-2"></i>
+            KULIMA FLEX
+          </h1>
+          <p class="text-sm opacity-80 mt-1">Admin Dashboard</p>
+        </div>
+        <button class="close-sidebar text-white lg:hidden">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      
+      <nav class="flex-1 mt-6">
+        <a href="index.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-pie w-6 mr-3 text-center"></i>
+          Overview
+        </a>
+
+        <a href="organizations.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-building w-6 mr-3 text-center"></i>
+          Organizations
+        </a>
+
+        <a href="donors.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-hand-holding-usd w-6 mr-3 text-center"></i>
+          Donors
+        </a>
+
+        <a href="analytics.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-line w-6 mr-3 text-center"></i>
+          Analytics
+        </a>
+
+        <a href="certificates.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-certificate w-6 mr-3 text-center"></i>
+          Certificates
+        </a>
+
+        <a href="products&sales.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-shopping-cart w-6 mr-3 text-center"></i>
+          Products & Sales
+        </a>
+
+        <a href="Reinvestments.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-seedling w-6 mr-3 text-center"></i>
+          Reinvestments
+        </a>
+
+        <a href="stories.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-book-open w-6 mr-3 text-center"></i>
+          Stories
+        </a>
+
+        <a href="subscription.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-credit-card w-6 mr-3 text-center"></i>
+          Subscription
+        </a>
+
+        <a href="trainings.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chalkboard-teacher w-6 mr-3 text-center"></i>
+          Trainings
+        </a>
+
+        <a href="users.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-users w-6 mr-3 text-center"></i>
+          Users
+        </a>
+      </nav>
+
+      <div class="p-6 border-t border-green-700">
+        <button class="w-full py-3 bg-secondary rounded-lg font-semibold hover:bg-accent transition-all duration-200 flex items-center justify-center">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-auto lg:ml-0">
+      <!-- Top Navbar -->
+      <header class="bg-white shadow-sm p-4 flex items-center justify-between sticky top-0 z-10">
+        <h2 class="text-xl font-semibold text-primary ml-12 lg:ml-0">Reports & Analytics</h2>
+        <div class="flex items-center gap-4">
+          
+          <div class="flex items-center gap-2">
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-medium">Admin User</p>
+              <p class="text-xs text-gray-500">Administrator</p>
+            </div>
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Admin" class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover">
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+
+
+    <!-- Quick Stats -->
+    <section class="p-4 lg:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+        <div class="flex flex-col items-center text-center">
+          <div class="p-3 lg:p-4 rounded-full bg-green-100 text-secondary mb-3 lg:mb-4">
+            <i class="fas fa-building text-3xl lg:text-4xl"></i>
+          </div>
+          <h3 class="text-base lg:text-lg font-medium text-gray-700">Organizations</h3>
+          <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">120</p>
+       
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+        <div class="flex flex-col items-center text-center">
+          <div class="p-3 lg:p-4 rounded-full bg-blue-100 text-blue-500 mb-3 lg:mb-4">
+            <i class="fas fa-chalkboard-teacher text-3xl lg:text-4xl"></i>
+          </div>
+          <h3 class="text-base lg:text-lg font-medium text-gray-700">Trainings</h3>
+          <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">287</p>
+         
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+        <div class="flex flex-col items-center text-center">
+          <div class="p-3 lg:p-4 rounded-full bg-purple-100 text-purple-500 mb-3 lg:mb-4">
+            <i class="fas fa-hand-holding-usd text-3xl lg:text-4xl"></i>
+          </div>
+          <h3 class="text-base lg:text-lg font-medium text-gray-700">Funding</h3>
+          <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">K245000</p>
+          
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+        <div class="flex flex-col items-center text-center">
+          <div class="p-3 lg:p-4 rounded-full bg-yellow-100 text-yellow-500 mb-3 lg:mb-4">
+            <i class="fas fa-boxes text-3xl lg:text-4xl"></i>
+          </div>
+          <h3 class="text-base lg:text-lg font-medium text-gray-700">Products</h3>
+          <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">42</p>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Visualization Section -->
+    <section class="p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Performance Trends -->
+      <div class="bg-white rounded-2xl p-4 lg:p-6 transition-all duration-300 hover:shadow-md">
+        <h3 class="font-semibold text-primary mb-6 flex items-center justify-between">
+          <span class="flex items-center">
+            <i class="fas fa-chart-line mr-2"></i>
+            Performance Trends
+          </span>
+          <select class="text-sm border rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+            <option>Last 6 Months</option>
+            <option>Last Year</option>
+            <option>Last Quarter</option>
+          </select>
+        </h3>
+        <div class="h-64 flex flex-col items-center justify-center bg-gray-50 rounded-lg">
+          <i class="fas fa-chart-bar text-4xl text-gray-300 mb-3"></i>
+          <p class="text-gray-400 italic">Performance trends chart</p>
+          <p class="text-sm text-gray-500 mt-1">Organizations growth, training completion, and funding trends</p>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div class="text-lg font-bold text-primary">+12%</div>
+            <div class="text-xs text-gray-500">Org Growth</div>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-primary">+18%</div>
+            <div class="text-xs text-gray-500">Funding</div>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-primary">+8%</div>
+            <div class="text-xs text-gray-500">Training</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Distribution -->
+      <div class="bg-white rounded-2xl p-4 lg:p-6 transition-all duration-300 hover:shadow-md">
+        <h3 class="font-semibold text-primary mb-6 flex items-center">
+          <i class="fas fa-chart-pie mr-2"></i>
+          Category Distribution
+        </h3>
+        <div class="h-64 flex flex-col items-center justify-center bg-gray-50 rounded-lg">
+          <i class="fas fa-chart-pie text-4xl text-gray-300 mb-3"></i>
+          <p class="text-gray-400 italic">Category distribution chart</p>
+          <p class="text-sm text-gray-500 mt-1">Funding allocation across different programs</p>
+        </div>
+        <div class="mt-4 space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-600">Health Reinvestment</span>
+            <span class="text-sm font-medium text-primary">42%</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-600">Training Programs</span>
+            <span class="text-sm font-medium text-primary">28%</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-600">Product Distribution</span>
+            <span class="text-sm font-medium text-primary">18%</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-600">Operations</span>
+            <span class="text-sm font-medium text-primary">12%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- Report Generation Section -->
+    <section class="p-4 lg:p-6">
+      <div class="bg-white rounded-2xl p-4 lg:p-6 transition-all duration-300 hover:shadow-md">
+        <h2 class="text-xl font-semibold text-primary mb-6 flex items-center">
+          <i class="fas fa-file-alt mr-2"></i>
+          Generate Reports
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Organizations Report -->
+          <div class="border rounded-lg p-4 hover:shadow-md transition-all duration-300">
+            <div class="flex items-center mb-3">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-building text-green-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Organizations</h3>
+                <p class="text-sm text-gray-500">Partner analysis</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Generate comprehensive reports on partner organizations, growth trends, and regional distribution.</p>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-primary hover:bg-secondary text-white text-sm py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-file-pdf mr-1"></i>
+                PDF
+              </button>
+             
+            </div>
+          </div>
+
+          <!-- Trainings Report -->
+          <div class="border rounded-lg p-4 hover:shadow-md transition-all duration-300">
+            <div class="flex items-center mb-3">
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-chalkboard-teacher text-blue-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Trainings</h3>
+                <p class="text-sm text-gray-500">Program performance</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Detailed reports on training programs, participant progress, and certification completion rates.</p>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-primary hover:bg-secondary text-white text-sm py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-file-pdf mr-1"></i>
+                PDF
+              </button>
+             
+            </div>
+          </div>
+
+          <!-- Certifications Report -->
+          <div class="border rounded-lg p-4 hover:shadow-md transition-all duration-300">
+            <div class="flex items-center mb-3">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-certificate text-purple-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Certifications</h3>
+                <p class="text-sm text-gray-500">Validation & tracking</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Reports on issued certificates, verification status, and renewal tracking across all programs.</p>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-primary hover:bg-secondary text-white text-sm py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-file-pdf mr-1"></i>
+                PDF
+              </button>
+             
+            </div>
+          </div>
+
+          <!-- Products Report -->
+          <div class="border rounded-lg p-4 hover:shadow-md transition-all duration-300">
+            <div class="flex items-center mb-3">
+              <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-box-open text-yellow-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Products</h3>
+                <p class="text-sm text-gray-500">Sales & inventory</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Inventory management, sales performance, and distribution reports by organization and region.</p>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-primary hover:bg-secondary text-white text-sm py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-file-pdf mr-1"></i>
+                PDF
+              </button>
+             
+            </div>
+          </div>
+
+          <!-- Donors Report -->
+          <div class="border rounded-lg p-4 hover:shadow-md transition-all duration-300">
+            <div class="flex items-center mb-3">
+              <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-donate text-red-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Donors Funding</h3>
+                <p class="text-sm text-gray-500">Contribution analysis</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Detailed funding reports, donor contribution trends, and allocation across different programs.</p>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-primary hover:bg-secondary text-white text-sm py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-file-pdf mr-1"></i>
+                PDF
+              </button>
+             
+            </div>
+          </div>
+
+          <!-- Health Reinvestment Report -->
+          <div class="border rounded-lg p-4 hover:shadow-md transition-all duration-300">
+            <div class="flex items-center mb-3">
+              <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-heartbeat text-indigo-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800">Health Reinvestment</h3>
+                <p class="text-sm text-gray-500">Impact analysis</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Reports on health fund reinvestments, community impact, and project completion status.</p>
+            <div class="flex gap-2">
+              <button class="flex-1 bg-primary hover:bg-secondary text-white text-sm py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-file-pdf mr-1"></i>
+                PDF
+              </button>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+
+
+    </main>
+  </div>
+
+  <script>
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.overlay');
+      const closeBtn = document.querySelector('.close-sidebar');
+      
+      function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+      
+      menuBtn.addEventListener('click', toggleSidebar);
+      closeBtn.addEventListener('click', toggleSidebar);
+      overlay.addEventListener('click', toggleSidebar);
+    });
+  </script>
+</body>
+</html>

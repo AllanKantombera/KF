@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kulima Flex | Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#007a3d',
+            secondary: '#00A859',
+            accent: '#00924f',
+            light: '#F8F9FA',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .mobile-menu-btn {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+      }
+      
+      .overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="bg-light font-sans">
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn fixed top-4 left-4 z-50 bg-primary text-white p-2 rounded-lg shadow-lg">
+    <i class="fas fa-bars text-lg"></i>
+  </button>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay"></div>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar w-64 bg-primary text-white flex flex-col shadow-xl">
+      <div class="p-6 border-b border-green-700 flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold flex items-center">
+            <i class="fas fa-leaf mr-2"></i>
+            KULIMA FLEX
+          </h1>
+          <p class="text-sm opacity-80 mt-1">Admin Dashboard</p>
+        </div>
+        <button class="close-sidebar text-white lg:hidden">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+     
+      <nav class="flex-1 mt-6">
+        <a href="index.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-pie w-6 mr-3 text-center"></i>
+          Overview
+        </a>
+
+        <a href="organizations.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-building w-6 mr-3 text-center"></i>
+          Organizations
+        </a>
+
+        <a href="donors.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-hand-holding-usd w-6 mr-3 text-center"></i>
+          Donors
+        </a>
+
+        <a href="analytics.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-line w-6 mr-3 text-center"></i>
+          Analytics
+        </a>
+
+        <a href="certificates.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-certificate w-6 mr-3 text-center"></i>
+          Certificates
+        </a>
+
+        <a href="products&sales.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-shopping-cart w-6 mr-3 text-center"></i>
+          Products & Sales
+        </a>
+
+        <a href="Reinvestments.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-seedling w-6 mr-3 text-center"></i>
+          Reinvestments
+        </a>
+
+        <a href="stories.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-book-open w-6 mr-3 text-center"></i>
+          Stories
+        </a>
+
+        <a href="subscription.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-credit-card w-6 mr-3 text-center"></i>
+          Subscription
+        </a>
+
+        <a href="trainings.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chalkboard-teacher w-6 mr-3 text-center"></i>
+          Trainings
+        </a>
+
+        <a href="users.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-users w-6 mr-3 text-center"></i>
+          Users
+        </a>
+      </nav>
+
+      <div class="p-6 border-t border-green-700">
+        <button class="w-full py-3 bg-secondary rounded-lg font-semibold hover:bg-accent transition-all duration-200 flex items-center justify-center">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-auto lg:ml-0">
+      <!-- Top Navbar -->
+      <header class="bg-white shadow-sm p-4 flex items-center justify-between sticky top-0 z-10">
+        <h2 class="text-xl font-semibold text-primary ml-12 lg:ml-0">Reinvestments</h2>
+        <div class="flex items-center gap-4">
+          
+          <div class="flex items-center gap-2">
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-medium">Admin User</p>
+              <p class="text-xs text-gray-500">Administrator</p>
+            </div>
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Admin" class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover">
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+ <!-- Reinvestment Records Section -->
+ <section class="p-4 lg:p-6">
+  <div class="bg-white rounded-2xl p-4 lg:p-6 transition-all duration-300 hover:shadow-md">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+      <h2 class="text-xl font-semibold text-primary flex items-center">
+        <i class="fas fa-history mr-2"></i>
+        Reinvestment Records
+      </h2>
+      <div class="flex flex-col sm:flex-row gap-3 mt-4 lg:mt-0">
+       
+        <select class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+          <option>All Categories</option>
+          <option>Medical Equipment</option>
+          <option>Health Training</option>
+          <option>Infrastructure</option>
+          <option>Community Programs</option>
+        </select>
+        
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b">
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Reinvestment ID</th>
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Project/Item</th>
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Category</th>
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Amount</th>
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Community</th>
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Date</th>
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Status</th>
+            <th class="text-left py-3 px-4 font-medium text-gray-700">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-4 font-mono text-sm">HR-2023-0158</td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Mobile Clinic Equipment</div>
+              <div class="text-xs text-gray-500">Medical supplies & vehicles</div>
+            </td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Medical Equipment</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium text-primary">$45,000</div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Rural Health Initiative</div>
+              <div class="text-xs text-gray-500">Eastern Province</div>
+            </td>
+            <td class="py-3 px-4">15 Nov 2023</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Completed</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="flex space-x-2">
+                <button class="text-blue-500 hover:text-blue-700" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="text-green-500 hover:text-green-700" title="Download Report">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="text-purple-500 hover:text-purple-700" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-4 font-mono text-sm">HR-2023-0159</td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Community Health Worker Training</div>
+              <div class="text-xs text-gray-500">Training program for 25 workers</div>
+            </td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Health Training</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium text-primary">$28,500</div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Northern Communities</div>
+              <div class="text-xs text-gray-500">Multiple villages</div>
+            </td>
+            <td class="py-3 px-4">18 Nov 2023</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">In Progress</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="flex space-x-2">
+                <button class="text-blue-500 hover:text-blue-700" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="text-green-500 hover:text-green-700" title="Download Report">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="text-purple-500 hover:text-purple-700" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-4 font-mono text-sm">HR-2023-0160</td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Clean Water Infrastructure</div>
+              <div class="text-xs text-gray-500">Water purification systems</div>
+            </td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">Infrastructure</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium text-primary">$67,800</div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Western Region Villages</div>
+              <div class="text-xs text-gray-500">5 communities</div>
+            </td>
+            <td class="py-3 px-4">20 Nov 2023</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Planned</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="flex space-x-2">
+                <button class="text-blue-500 hover:text-blue-700" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="text-green-500 hover:text-green-700" title="Download Report">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="text-purple-500 hover:text-purple-700" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-4 font-mono text-sm">HR-2023-0161</td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Nutrition Supplement Program</div>
+              <div class="text-xs text-gray-500">6-month program for children</div>
+            </td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-pink-100 text-pink-800 text-xs rounded-full">Community Programs</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium text-primary">$15,480</div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-medium">Southern District</div>
+              <div class="text-xs text-gray-500">Urban communities</div>
+            </td>
+            <td class="py-3 px-4">22 Nov 2023</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Completed</span>
+            </td>
+            <td class="py-3 px-4">
+              <div class="flex space-x-2">
+                <button class="text-blue-500 hover:text-blue-700" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="text-green-500 hover:text-green-700" title="Download Report">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="text-purple-500 hover:text-purple-700" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="mt-6 bg-secondary hover:bg-accent text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center">
+      <i class="fas fa-plus mr-2"></i>
+      Add Reinvestment
+    </button>
+   
+  </div>
+</section>
+
+
+
+
+
+
+
+      
+
+
+
+
+    </main>
+  </div>
+
+  <script>
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.overlay');
+      const closeBtn = document.querySelector('.close-sidebar');
+      
+      function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+      
+      menuBtn.addEventListener('click', toggleSidebar);
+      closeBtn.addEventListener('click', toggleSidebar);
+      overlay.addEventListener('click', toggleSidebar);
+    });
+  </script>
+</body>
+</html>

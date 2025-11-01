@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kulima Flex | Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#007a3d',
+            secondary: '#00A859',
+            accent: '#00924f',
+            light: '#F8F9FA',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .mobile-menu-btn {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-light font-sans">
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn fixed top-4 left-4 z-50 bg-primary text-white p-2 rounded-lg shadow-lg">
+    <i class="fas fa-bars text-lg"></i>
+  </button>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay"></div>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar w-54 bg-primary text-white flex flex-col shadow-xl">
+      <div class="p-6 border-b border-green-700 flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold flex items-center">
+            <i class="fas fa-leaf mr-2"></i>
+            KULIMA FLEX
+          </h1>
+        </div>
+        <button class="close-sidebar text-white lg:hidden">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav class="flex-1 mt-6">
+        <a href="index.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-pie w-6 mr-3 text-center"></i>
+          Overview
+        </a>
+
+        <a href="organizations.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-building w-6 mr-3 text-center"></i>
+          Organizations
+        </a>
+
+        <a href="donors.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-hand-holding-usd w-6 mr-3 text-center"></i>
+          Donors
+        </a>
+
+        <a href="analytics.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-line w-6 mr-3 text-center"></i>
+          Analytics
+        </a>
+
+        <a href="certificates.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-certificate w-6 mr-3 text-center"></i>
+          Certificates
+        </a>
+
+        <a href="products&sales.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-shopping-cart w-6 mr-3 text-center"></i>
+          Products & Sales
+        </a>
+
+        <a href="Reinvestments.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-seedling w-6 mr-3 text-center"></i>
+          Reinvestments
+        </a>
+
+        <a href="stories.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-book-open w-6 mr-3 text-center"></i>
+          Stories
+        </a>
+
+        <a href="subscription.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-credit-card w-6 mr-3 text-center"></i>
+          Subscription
+        </a>
+
+        <a href="trainings.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chalkboard-teacher w-6 mr-3 text-center"></i>
+          Trainings
+        </a>
+
+        <a href="users.html"
+          class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-users w-6 mr-3 text-center"></i>
+          Users
+        </a>
+      </nav>
+
+
+      <div class="p-6 border-t border-green-700">
+        <button
+          class="w-full py-3 bg-secondary rounded-lg font-semibold hover:bg-accent transition-all duration-200 flex items-center justify-center">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-auto lg:ml-0">
+      <!-- Top Navbar -->
+      <header class="bg-white shadow-sm p-4 flex items-center justify-between sticky top-0 z-10">
+        <h2 class="text-xl font-semibold text-primary ml-12 lg:ml-0">Dashboard Overview</h2>
+        <div class="flex items-center gap-4">
+
+          <div class="flex items-center gap-2">
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-medium">Admin User</p>
+              <p class="text-xs text-gray-500">Administrator</p>
+            </div>
+            <div class="relative">
+              <img
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                alt="Admin" class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover">
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Overview Cards -->
+      <section class="p-4 lg:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <div
+          class="bg-gradient-to-br from-green-50 to-green-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+          <div class="flex flex-col items-center text-center">
+            <div class="p-3 lg:p-4 rounded-full bg-green-100 text-secondary mb-3 lg:mb-4">
+              <i class="fas fa-building text-3xl lg:text-4xl"></i>
+            </div>
+            <h3 class="text-base lg:text-lg font-medium text-gray-700">Total Organizations</h3>
+            <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">120</p>
+
+          </div>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+          <div class="flex flex-col items-center text-center">
+            <div class="p-3 lg:p-4 rounded-full bg-blue-100 text-blue-500 mb-3 lg:mb-4">
+              <i class="fas fa-hand-holding-usd text-3xl lg:text-4xl"></i>
+            </div>
+            <h3 class="text-base lg:text-lg font-medium text-gray-700">Total Donors</h3>
+            <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">34</p>
+
+          </div>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+          <div class="flex flex-col items-center text-center">
+            <div class="p-3 lg:p-4 rounded-full bg-purple-100 text-purple-500 mb-3 lg:mb-4">
+              <i class="fas fa-tasks text-3xl lg:text-4xl"></i>
+            </div>
+            <h3 class="text-base lg:text-lg font-medium text-gray-700">Active Projects</h3>
+            <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">58</p>
+
+          </div>
+        </div>
+
+        <div
+          class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 lg:p-6 rounded-2xl transition-all duration-300 hover:shadow-md">
+          <div class="flex flex-col items-center text-center">
+            <div class="p-3 lg:p-4 rounded-full bg-yellow-100 text-yellow-500 mb-3 lg:mb-4">
+              <i class="fas fa-dollar-sign text-3xl lg:text-4xl"></i>
+            </div>
+            <h3 class="text-base lg:text-lg font-medium text-gray-700">Revenue</h3>
+            <p class="text-3xl lg:text-4xl font-bold text-primary mt-1 lg:mt-2">$12,450</p>
+
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- Recent Activity Section -->
+      <section class="p-4 lg:p-6">
+        <div class="bg-white rounded-2xl p-4 lg:p-6 transition-all duration-300 hover:shadow-md">
+          <h3 class="font-semibold text-primary mb-4 lg:mb-6 flex items-center">
+            <i class="fas fa-history mr-2"></i>
+            Recent Activity
+          </h3>
+          <div class="space-y-3 lg:space-y-4">
+            <div class="flex items-start border-b pb-3 lg:pb-4">
+              <div class="p-2 rounded-full bg-green-50 text-secondary mr-3 lg:mr-4">
+                <i class="fas fa-building"></i>
+              </div>
+              <div class="flex-1">
+                <p class="font-medium text-sm lg:text-base">New organization registered</p>
+                <p class="text-xs lg:text-sm text-gray-500">Green Farms Ltd. joined the platform</p>
+              </div>
+              <span class="text-xs text-gray-500 ml-2">2h ago</span>
+            </div>
+            <div class="flex items-start border-b pb-3 lg:pb-4">
+              <div class="p-2 rounded-full bg-blue-50 text-blue-500 mr-3 lg:mr-4">
+                <i class="fas fa-hand-holding-usd"></i>
+              </div>
+              <div class="flex-1">
+                <p class="font-medium text-sm lg:text-base">New donation received</p>
+                <p class="text-xs lg:text-sm text-gray-500">$2,500 donation from AgroTech Solutions</p>
+              </div>
+              <span class="text-xs text-gray-500 ml-2">5h ago</span>
+            </div>
+            <div class="flex items-start">
+              <div class="p-2 rounded-full bg-purple-50 text-purple-500 mr-3 lg:mr-4">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div class="flex-1">
+                <p class="font-medium text-sm lg:text-base">Project completed</p>
+                <p class="text-xs lg:text-sm text-gray-500">Irrigation system installation finished</p>
+              </div>
+              <span class="text-xs text-gray-500 ml-2">1d ago</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.overlay');
+      const closeBtn = document.querySelector('.close-sidebar');
+
+      function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+
+      menuBtn.addEventListener('click', toggleSidebar);
+      closeBtn.addEventListener('click', toggleSidebar);
+      overlay.addEventListener('click', toggleSidebar);
+    });
+  </script>
+</body>
+
+</html>
