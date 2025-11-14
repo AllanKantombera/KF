@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kulima Flex | Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#007a3d',
+            secondary: '#00A859',
+            accent: '#00924f',
+            light: '#F8F9FA',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .mobile-menu-btn {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+      }
+      
+      .overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="bg-light font-sans">
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn fixed top-4 left-4 z-50 bg-primary text-white p-2 rounded-lg shadow-lg">
+    <i class="fas fa-bars text-lg"></i>
+  </button>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay"></div>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside class="sidebar w-64 bg-primary text-white flex flex-col shadow-xl">
+      <div class="p-6 border-b border-green-700 flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold flex items-center">
+            <i class="fas fa-leaf mr-2"></i>
+            KULIMA FLEX
+          </h1>
+          <p class="text-sm opacity-80 mt-1">Admin Dashboard</p>
+        </div>
+        <button class="close-sidebar text-white lg:hidden">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav class="flex-1 mt-6">
+        <a href="#" class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-pie w-6 mr-3 text-center"></i>
+          Overview
+        </a>
+        <a href="#" class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-building w-6 mr-3 text-center"></i>
+          Organizations
+        </a>
+        <a href="#" class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-hand-holding-usd w-6 mr-3 text-center"></i>
+          Donors
+        </a>
+        <a href="#" class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-chart-bar w-6 mr-3 text-center"></i>
+          Reports
+        </a>
+        <a href="#" class="flex items-center py-3 px-6 hover:bg-secondary transition-all duration-200 border-l-4 border-transparent hover:border-white">
+          <i class="fas fa-cog w-6 mr-3 text-center"></i>
+          Settings
+        </a>
+      </nav>
+
+      <div class="p-6 border-t border-green-700">
+        <button class="w-full py-3 bg-secondary rounded-lg font-semibold hover:bg-accent transition-all duration-200 flex items-center justify-center">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-auto lg:ml-0">
+      <!-- Top Navbar -->
+      <header class="bg-white shadow-sm p-4 flex items-center justify-between sticky top-0 z-10">
+        <h2 class="text-xl font-semibold text-primary ml-12 lg:ml-0">Dashboard Overview</h2>
+        <div class="flex items-center gap-4">
+          
+          <div class="flex items-center gap-2">
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-medium">Admin User</p>
+              <p class="text-xs text-gray-500">Administrator</p>
+            </div>
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Admin" class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover">
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+<!-- Projects Filters -->
+<section class="p-4 lg:p-6">
+  <div class="bg-white rounded-2xl p-4 lg:p-6 transition-all duration-300 hover:shadow-md">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div class="flex flex-wrap gap-4">
+     
+        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="completed">Completed</option>
+          <option value="planning">Planning</option>
+          <option value="on-hold">On Hold</option>
+        </select>
+        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+          <option value="">All Categories</option>
+          <option value="agriculture">Agriculture</option>
+          <option value="irrigation">Irrigation</option>
+          <option value="training">Training</option>
+          <option value="infrastructure">Infrastructure</option>
+        </select>
+      </div>
+      <div class="flex gap-2">
+        
+
+
+        <button id="addProjectBtn" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-all duration-200 flex items-center">
+          <i class="fas fa-plus mr-2"></i>
+          Add New Project
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="p-4 lg:p-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Project Card 1 -->
+    <div class="bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-100">
+      <div class="h-48 bg-gradient-to-br from-green-100 to-green-200 relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+             alt="Irrigation Project" class="w-full h-full object-cover">
+        <div class="absolute top-4 right-4">
+          <span class="px-3 py-1 bg-green-500 text-white rounded-full text-sm font-medium">Active</span>
+        </div>
+        <div class="absolute bottom-4 left-4">
+          <span class="px-2 py-1 bg-black bg-opacity-50 text-white rounded text-xs">Agriculture</span>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-3">
+          <h3 class="text-xl font-semibold text-primary">Modern Irrigation System</h3>
+          <div class="flex gap-2">
+            <button class="text-blue-500 hover:text-blue-700">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="text-red-500 hover:text-red-700">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Implementation of drip irrigation systems for smallholder farmers to improve water efficiency.</p>
+        
+        <div class="space-y-3 mb-4">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700">Progress</span>
+              <span class="text-sm font-medium text-primary">75%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-secondary h-2 rounded-full" style="width: 75%"></div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between text-sm">
+            <div>
+              <p class="text-gray-500">Start Date</p>
+              <p class="font-medium">Jan 15, 2023</p>
+            </div>
+            <div>
+              <p class="text-gray-500">End Date</p>
+              <p class="font-medium">Jun 30, 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+          <div class="flex items-center">
+            <i class="fas fa-dollar-sign text-green-500 mr-1"></i>
+            <span class="font-medium">$45,000</span>
+          </div>
+          <button class="text-primary hover:text-secondary font-medium flex items-center">
+            View Details
+            <i class="fas fa-chevron-right ml-1 text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Card 2 -->
+    <div class="bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-100">
+      <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-200 relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+             alt="Farmer Training" class="w-full h-full object-cover">
+        <div class="absolute top-4 right-4">
+          <span class="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-medium">Completed</span>
+        </div>
+        <div class="absolute bottom-4 left-4">
+          <span class="px-2 py-1 bg-black bg-opacity-50 text-white rounded text-xs">Training</span>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-3">
+          <h3 class="text-xl font-semibold text-primary">Sustainable Farming Training</h3>
+          <div class="flex gap-2">
+            <button class="text-blue-500 hover:text-blue-700">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="text-red-500 hover:text-red-700">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Training program for 500 farmers on sustainable agricultural practices and climate resilience.</p>
+        
+        <div class="space-y-3 mb-4">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700">Progress</span>
+              <span class="text-sm font-medium text-primary">100%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-secondary h-2 rounded-full" style="width: 100%"></div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between text-sm">
+            <div>
+              <p class="text-gray-500">Start Date</p>
+              <p class="font-medium">Mar 1, 2023</p>
+            </div>
+            <div>
+              <p class="text-gray-500">End Date</p>
+              <p class="font-medium">Aug 15, 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+          <div class="flex items-center">
+            <i class="fas fa-dollar-sign text-green-500 mr-1"></i>
+            <span class="font-medium">$28,500</span>
+          </div>
+          <button class="text-primary hover:text-secondary font-medium flex items-center">
+            View Details
+            <i class="fas fa-chevron-right ml-1 text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Card 3 -->
+    <div class="bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-100">
+      <div class="h-48 bg-gradient-to-br from-purple-100 to-purple-200 relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+             alt="Crop Diversification" class="w-full h-full object-cover">
+        <div class="absolute top-4 right-4">
+          <span class="px-3 py-1 bg-yellow-500 text-white rounded-full text-sm font-medium">Planning</span>
+        </div>
+        <div class="absolute bottom-4 left-4">
+          <span class="px-2 py-1 bg-black bg-opacity-50 text-white rounded text-xs">Agriculture</span>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-3">
+          <h3 class="text-xl font-semibold text-primary">Crop Diversification Program</h3>
+          <div class="flex gap-2">
+            <button class="text-blue-500 hover:text-blue-700">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="text-red-500 hover:text-red-700">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Introducing alternative crops to improve soil health and provide additional income sources.</p>
+        
+        <div class="space-y-3 mb-4">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700">Progress</span>
+              <span class="text-sm font-medium text-primary">25%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-secondary h-2 rounded-full" style="width: 25%"></div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between text-sm">
+            <div>
+              <p class="text-gray-500">Start Date</p>
+              <p class="font-medium">Sep 1, 2023</p>
+            </div>
+            <div>
+              <p class="text-gray-500">End Date</p>
+              <p class="font-medium">Dec 31, 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+          <div class="flex items-center">
+            <i class="fas fa-dollar-sign text-green-500 mr-1"></i>
+            <span class="font-medium">$62,000</span>
+          </div>
+          <button class="text-primary hover:text-secondary font-medium flex items-center">
+            View Details
+            <i class="fas fa-chevron-right ml-1 text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add/Edit Project Modal -->
+<div id="projectModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-semibold text-primary" id="modalTitle">Add New Project</h3>
+      <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+    </div>
+    
+    <form id="projectForm" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Project Name</label>
+          <input type="text" id="projectName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter project name">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Project Category</label>
+          <select id="projectCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="">Select Category</option>
+            <option value="agriculture">Agriculture</option>
+            <option value="irrigation">Irrigation</option>
+            <option value="training">Training</option>
+            <option value="infrastructure">Infrastructure</option>
+            <option value="research">Research</option>
+            <option value="community">Community Development</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+          <input type="date" id="startDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+          <input type="date" id="endDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Budget ($)</label>
+          <input type="number" id="projectBudget" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter budget amount">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+          <select id="projectStatus" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="planning">Planning</option>
+            <option value="active">Active</option>
+            <option value="on-hold">On Hold</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Project Description</label>
+          <textarea id="projectDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" rows="4" placeholder="Describe the project objectives, activities, and expected outcomes"></textarea>
+        </div>
+      </div>
+      
+      <!-- Project Results Section -->
+      <div class="border-t border-gray-200 pt-6">
+        <h4 class="text-lg font-medium text-primary mb-4 flex items-center">
+          <i class="fas fa-chart-line mr-2"></i>
+          Project Results & Documentation
+        </h4>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Progress Percentage</label>
+            <input type="range" id="progressPercentage" min="0" max="100" value="0" class="w-full">
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>0%</span>
+              <span id="progressValue">0%</span>
+              <span>100%</span>
+            </div>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Project Images</label>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+              <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+              <p class="text-gray-500 mb-2">Drag & drop images here or click to upload</p>
+              <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-all duration-200">
+                Browse Files
+              </button>
+              <p class="text-xs text-gray-400 mt-2">PNG, JPG, GIF up to 10MB each</p>
+            </div>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Project Reports</label>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+              <i class="fas fa-file-pdf text-3xl text-gray-400 mb-2"></i>
+              <p class="text-gray-500 mb-2">Upload project reports, documents, or presentations</p>
+              <button type="button" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-all duration-200">
+                Upload Documents
+              </button>
+              <p class="text-xs text-gray-400 mt-2">PDF, DOC, PPT up to 25MB each</p>
+            </div>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Results & Impact Metrics</label>
+            <textarea id="projectResults" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" rows="3" placeholder="Describe project results, impact metrics, and key achievements"></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex justify-end gap-4 pt-4">
+        <button type="button" id="cancelProjectBtn" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-all duration-200">
+          Cancel
+        </button>
+        <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-all duration-200">
+          Save Project
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</main>
+
+<script>
+// Project Management Functionality
+document.addEventListener('DOMContentLoaded', function () {
+  const addProjectBtn = document.getElementById('addProjectBtn');
+  const projectModal = document.getElementById('projectModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const cancelProjectBtn = document.getElementById('cancelProjectBtn');
+  const projectForm = document.getElementById('projectForm');
+  const progressPercentage = document.getElementById('progressPercentage');
+  const progressValue = document.getElementById('progressValue');
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.overlay');
+  const closeBtn = document.querySelector('.close-sidebar');
+  
+  function toggleSidebar() {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  }
+  
+  menuBtn.addEventListener('click', toggleSidebar);
+  closeBtn.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', toggleSidebar);
+  
+  // Update progress value display
+  progressPercentage.addEventListener('input', function() {
+    progressValue.textContent = this.value + '%';
+  });
+
+  // Open modal
+  addProjectBtn.addEventListener('click', function() {
+    projectModal.classList.remove('hidden');
+    document.getElementById('modalTitle').textContent = 'Add New Project';
+    projectForm.reset();
+    progressValue.textContent = '0%';
+    progressPercentage.value = 0;
+  });
+
+  // Close modal
+  function closeModal() {
+    projectModal.classList.add('hidden');
+  }
+
+  closeModalBtn.addEventListener('click', closeModal);
+  cancelProjectBtn.addEventListener('click', closeModal);
+
+  // Handle form submission
+  projectForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Here you would typically send the data to your backend
+    const projectData = {
+      name: document.getElementById('projectName').value,
+      category: document.getElementById('projectCategory').value,
+      startDate: document.getElementById('startDate').value,
+      endDate: document.getElementById('endDate').value,
+      budget: document.getElementById('projectBudget').value,
+      status: document.getElementById('projectStatus').value,
+      description: document.getElementById('projectDescription').value,
+      progress: document.getElementById('progressPercentage').value,
+      results: document.getElementById('projectResults').value
+    };
+    
+    console.log('Project Data:', projectData);
+    
+    // Show success message
+    alert('Project saved successfully!');
+    
+    // Close the modal
+    closeModal();
+    
+    // In a real application, you would update the projects list here
+  });
+
+  // Edit project functionality (for demo purposes)
+  document.querySelectorAll('.fa-edit').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const projectCard = this.closest('.bg-white');
+      const projectName = projectCard.querySelector('h3').textContent;
+      
+      // Set form values for editing
+      document.getElementById('modalTitle').textContent = 'Edit Project';
+      document.getElementById('projectName').value = projectName;
+      
+      // Open modal
+      projectModal.classList.remove('hidden');
+    });
+  });
+});
+</script>
+</body>
+</html>
